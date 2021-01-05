@@ -1,0 +1,14 @@
+<h1>New Game</h1>
+<%=  %>
+<h2 class="game"><%= @new_game.join(' ') %></h2>
+
+<p>What is the longest word you can find?</p>
+<form action="/score" method="post">
+  <input type="hidden" name="game" value=<%= @new_game.join %>>
+  <input type="text" name="attempt">
+  <input type="submit" value="Play">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+</form>
+<br>
+<br>
+<%= link_to 'Give me new letters!', new_path %>
