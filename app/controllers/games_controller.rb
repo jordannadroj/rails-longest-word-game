@@ -20,9 +20,7 @@ class GamesController < ApplicationController
     @game = params[:game]
     attempt_array = @attempt.chars
     game_array = @game.chars
-    @english = ''
-    @in_grid = ''
-    @win = ''
+    @result = ''
     @score = 0
 
     # check to see if the word is made of letters in the grid
@@ -35,13 +33,15 @@ class GamesController < ApplicationController
       dictionary_hash['found']
     end
 
+    @gamechars = @game.chars.join(', ').upcase
+
     if !in_grid
-      @in_grid = "Sorry but <b>#{@attempt}</b> cannot be built of of #{@game.chars.join(', ').upcase}".html_safe
+      @result = "Sorry but <b>#{@attempt}</b> cannot be built of #{@gamechars}".html_safe
     elsif !english?
-      @english = "Sorry but <b>#{@attempt}</b> does not seem to be a valid English word..".html_safe
+      @result = "Sorry but <b>#{@attempt}</b> does not seem to be a valid English word..".html_safe
     elsif in_grid && english?
       @score += @attempt.length
-      @win = "Congratulations! <b>#{@attempt}</b> is a valid English word".html_safe
+      @result = "Congratulations! <b>#{@attempt}</b> is a valid English word".html_safe
     end
   end
 end
